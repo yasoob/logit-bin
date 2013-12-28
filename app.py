@@ -157,7 +157,7 @@ def success():
 def login():
     if session['user_email']:
         flash('you are already logged in')
-        redirect(request.referrer or url_for('home'))
+        return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -165,7 +165,7 @@ def login():
             session['user_email'] = form.email.data
             session['user_name'] = user.name
             flash('Thanks for logging in')
-            return redirect(request.referrer or url_for('home'))
+            return redirect(url_for('home'))
         else:
             flash('Sorry! no user exists with this email and password')
             return render_template('login.html', form=form)
@@ -175,7 +175,7 @@ def login():
 def signup():
     if session['user_email']:
         flash('you are already signed up')
-        redirect(request.referrer or url_for('home'))
+        return redirect(url_for('home'))
     form = SignupForm()
     if form.validate_on_submit():
         print "nothins"
