@@ -7,8 +7,8 @@ import os
 app = Flask(__name__)
 app.config['SECRET_KEY']= 'dsdsaxasdcdvsfcahuf286r783h782tg62367dggdb2387'
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///paste.db"
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///paste.db"
+#app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
 
 #-----------------------------------------------------------------------------------------------#
@@ -131,16 +131,17 @@ def view_raw(paste_id):
 
 @app.route('/<paste_id>/delete', methods=['GET', 'POST'])
 def delete_paste(paste_id):
-    paste = Paste.query.get_or_404(paste_id)
-    if session['user_name'] is None or session['user_name'] != paste.user.name:
-        abort(401)
+    paste = Paste.query.get(paste_id)
+    if paste.user:
+        if session['user_name'] is None or session['user_name'] != paste.user.name:
+            abort(401)
     if request.method == 'POST':
         if 'yes' in request.form:
             comments = paste.user.comments.filter_by(parent_paste = 1).all()
             db.session.delete(paste)
             db.session.commit()
             flash('Paste was successfully deleted')
-            return redirect(url_for('new_paste'))
+            return redirect(url_for('home'))
         else:
             return redirect(url_for('show_paste', paste_id=paste.id))
     return render_template('delete_paste.html', paste=paste)
