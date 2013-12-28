@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}New Paste{% endblock %}
+{% block body %}
+  <h2><ul><li>New Paste</li></ul></h2>
+  <form action="" method=post>
+    <div class=code><textarea name=code cols=60 rows=18>{{ parent.code }}</textarea></div>
+    <p><input class = "new-paste" type=submit value="Logit!">
+  </form>
+
+{% endblock %}

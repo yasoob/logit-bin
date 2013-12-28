@@ -1,0 +1,129 @@
+body         { font-family: 'Georgia', serif; font-size: 17px; color: #000; }
+a            { color: #004B6B; }
+a:hover      { color: #6D4100; text-decoration: none;}
+.box         { width: 840px; margin: 40px auto; }
+h2, h3, h4   { font-family: 'Garamond', 'Georgia', serif; font-weight: normal; }
+h1           { margin: 0 0 30px 0; background: url(/static/flask.png) no-repeat center;
+               height: 165px; }
+h1 span      { display: none; }
+h2           { font-size: 30px; margin: 15px 0 5px 0; }
+h3           { font-size: 24px; margin: 15px 0 5px 0; }
+h4           { font-size: 19px; margin: 15px 0 5px 0; }
+textarea, code,
+pre          { font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono',
+               monospace!important; font-size: 15px; background: #eee; }
+pre          { padding: 7px 30px; margin: 15px -30px; line-height: 1.3; border:0px;}
+textarea:focus { border:none}
+.ig          { color: #888; }
+p            { line-height: 1.4; }
+ul           { margin: 15px 0 15px 0; padding: 0; list-style: none; line-height: 1.4; }
+ul li:before { content: "\00BB \0020"; color: #888; position: absolute; margin-left: -19px; }
+ol           { line-height: 1.4; margin: 15px 0 15px 30px; padding: 0; }
+blockquote   { margin: 0; font-style: italic; color: #444; }
+.logo       {text-align: center; margin-bottom: 35px;}
+.nav        {margin-bottom: 15px;}
+.code       { font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono',
+               monospace!important; font-size: 15px; background: #eee; 
+               padding: 7px 30px; margin: 15px -30px; line-height: 1.3; border:0px; margin-bottom: 5em; border-bottom: 1px solid black;}
+.comment-box { font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono',
+               monospace!important; font-size: 15px; background: #eee; 
+               padding: 7px 30px; margin: 15px -30px; line-height: 1.3; border:0px; border-bottom: 1px solid black;}
+.footer      { font-size: 13px; color: #888; text-align: right; margin-top: 25px; }
+.more        { text-align: right; margin-top: 0; font-size: 0.9em; font-style: italic; }
+.nav         { text-align: center; }
+.nav a       { font-style: italic; }
+.backnav     { float: right; color: #444; font-style: italic;
+               margin: 5px 0 0 0; font-size: 0.9em; }
+.message     { background: #DEEBF3; color: #004B6B; padding: 5px 30px;
+               margin: 10px -30px; }
+.actions     { margin-top: 0; }
+.twitter:before { background: url(twitter.png) no-repeat; content: " ";
+                  float: right; width: 64px; height: 64px;
+                  margin: -25px 0 0 0; padding: 0 0 10px 10px; }
+.twitter li  { margin: 15px 0; line-height: 1.2; font-size: 15px; }
+.twitter li:before { content: "♯"; padding-left: 4px; }
+.twitter .meta, .twitter .meta a { color: #888; font-size: 13px; }
+table        { border: 1px solid black; border-collapse: collapse;
+               margin: 15px 0; }
+td, th       { border: 1px solid black; padding: 4px 10px;
+               text-align: left; }
+th           { background: #eee; font-weight: normal; }
+
+td input     { border: none; padding: 0; }
+
+/* latest version button */
+.latestver          { margin: 20px 0 0 0; float: right; font-style: italic; }
+.latestver strong   { font-weight: normal; }
+
+/* forms */
+input, textarea, select { border: 1px solid black; padding: 2px; background: white;
+                          font-family: 'Georgia', serif; font-size: 14px; color: #004B6B; }
+textarea                { width: 99%; background: #FDF8F8; border: none; margin: 20px 12px;}
+input[type="submit"]    { background: #D1DEE5; border-color: #004B6B;
+                          cursor: pointer; padding: 10px; border: none;}
+input[name="delete"]:hover { background: #A50000; color: white;
+                             border-color: #860000; }
+input.openid            { background: url(openid.png) no-repeat 4px center;
+                          padding-left: 26px; }
+.formlist dt            { color: #004B6B; margin: 8px 0; }
+
+/* badges */
+.badge     { margin: 15px -30px; padding: 0 30px;
+             border: 1px solid #eee; }
+.badge p   { margin: 0; padding: 10px 0; line-height: 0; }
+.badge img { margin: 0; }
+.badge pre { margin: 0 -30px; padding: 5px 30px; }
+
+/* logo hint */
+.logohint   { background: #f3f3f3; margin: 0 -30px 0 -30px; padding: 10px 30px;
+              font-size: 14px; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; }
+.logohint p { margin: 10px 0; }
+
+/* snippets */
+.snippet-author     { margin: 0 0 20px 0; font-size: 0.9em; }
+#comment-box        { background: #fafafa; margin: 45px -30px 15px -30px; padding: 10px 30px; }
+.comments           { margin-top: 0; }
+.comments .title    { border-bottom: 1px solid black; margin: 0; font-style: italic; }
+.comments .body     { margin: 0 0 0 30px; }
+.comments .body pre { padding: 7px 30px 7px 60px; margin: 10px -30px 10px -60px; }
+.comments .body p   { margin: 10px 0; }
+.comments li:before { display: none; }
+.comments ul li     { list-style: disc; }
+.comments ul,
+.comments ol        { margin: 15px 0 15px 20px; padding: 0; }
+#preview            { margin: 20px -30px; padding: 10px 30px; background: #fafafa; }
+
+/* mailinglist */
+.pagination         { text-align: center; font-size: 15px; margin: 20px 0 0 0; }
+.disabled           { color: #888; }
+.archive .meta      { font-size: 0.9em; display: block; margin: 0 0 0.5em 1em; }
+.mailtree           { border-top: 1px solid black; padding: 5px 12px 5px 12px;
+                      border-bottom: 1px solid black; font-size: 14px;
+                      max-height: 100px; overflow: auto; }
+.login              { width:520px; margin:55px auto}
+.login-form         {background: #eee;padding: 15px;}
+input[type="submit"]:hover{ color:black; background: rgb(213, 204, 204);}
+input.login-btn    {margin-left: 4px; padding: 4px 10px;}
+dl            { overflow: auto; font-size: 14px; }
+dl dt         { font-weight: bold; width: 90px; float: left;
+                clear: left; }
+dl dd         { float: left; margin: 0; padding: 0; }
+.inner-form   {width: 350px; margin:0 auto;}
+.flash-messages {width:520px; margin: 0 auto; background: rgb(235, 232, 232);padding:0px}
+.flashes li.error{
+                  color:red;
+                  padding:3px
+;
+                  padding-left: 5px;
+}
+input {float:right}
+.signup-btn {width:100%; float:none; margin-top:15px }
+.error {color:red}
+.new-paste  {float:none;}
+div.code textarea {padding: 1em;}
+.comment-author{/* font-weight:bold; */text-transform: capitalize;}
+.comment-date  {float:right;font-size:15px;font-style:italic}
+.inner-form-login { width: 300px;margin: 0 auto;}
+.login-btn  {float: none;width: 100%;}
+.comment-head {margin-left: -30px;margin-right: -30px;padding: 5;padding-left: 15px;border-top: 1px solid black;border-bottom: 1px solid black;background: #eee;}
+.login-box{margin-left: -30px;margin-right: -30px;padding: 5;padding-left: 30px;border-top: 1px solid black;border-bottom: 1px solid black;background: #eee;}

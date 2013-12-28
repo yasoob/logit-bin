@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class = "login">
+	<p> for some of the features on this website you will have to signup. For example if you want to do any of the below actions then you will have to signup:
+	<ul>
+	<li>delete you paste</li>
+	<li>see your own pastes as a list</li>
+	<li>write comments</li>
+	<li>see details for your comments</li>
+	<li>and much more!</li>
+	</ul>
+<form class = "login-form" method="POST" action="{{url_for('signup')}}">
+	<div class = "inner-form">
+    {{ form.hidden_tag() }}
+    <p class="name">Name:       {{ form.name}}</p>
+	    {% if form.name.errors %}
+	    <ul class=errors>
+	    {% for error in form.name.errors %}
+	      <li class = "error">{{ error }}</li>
+	    {% endfor %}
+	    </ul>
+	    {% endif %}
+    <p class="password">Password: {{ form.password(type = "password") }}</p>
+	    {% if form.password.errors %}
+	    <ul class=errors>
+	    {% for error in form.password.errors %}
+	      <li class = "error">{{ error }}</li>
+	    {% endfor %}
+	    </ul>
+	  	{% endif %}
+    <p class="confirm">Repeat Password: {{ form.confirm(type = "password") }}</p>
+     	{% if form.confirm.errors %}
+	    <ul class=errors>
+	    {% for error in form.confirm.errors %}
+	      <li class = "error">{{ error }}</li>
+	    {% endfor %}
+	    </ul>
+	  	{% endif %}
+    <p class="email1">Email: {{ form.email }}</p>
+    	 {% if form.email.errors %}
+	    <ul class=errors>
+	    {% for error in form.email.errors %}
+	      <li class = "error">{{ error }}</li>
+	    {% endfor %}
+	    </ul>
+	  	{% endif %}
+    <input class = "signup-btn" type="submit" value="Sign up">
+    </p>
+    </div>
+</form>
+</div>
+{% endblock %} 

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class = "login">
+<p> If you are a regular user and have signed up before then don't hesitate to login below. It will take only two minutes and you will be able to access a whole lot more goodies!</p>
+{% if session['user_email'] %} 
+<p class="login-box">You are already logged in. There is nothing much you can do over here right now.</p>
+{% else %}
+<form class = "login-form" method="POST" action="{{url_for('login')}}">
+<div class="inner-form-login">
+    {{ form.hidden_tag() }}
+    <p class="email">Email: {{ form.email(size=20) }}</p>
+    <p> Password: {{ form.password(size=20, type = "password") }}</p>
+    <input class = "login-btn" type="submit" value="Login"></p>
+</div>
+</form>
+<p>
+	Are you new over here? <a href = "{{url_for('signup')}}">Click here</a> to Signup.
+	</p>
+{% endif %}
+</div>
+{% endblock %}

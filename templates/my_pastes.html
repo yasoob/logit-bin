@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block title %}{{ session['user_name'] }}{% endblock %}
+{% block body %}
+<div class="login">
+<h3>Recent Pastes:</h3>
+<ul>
+{% for paste in pastes %}
+<li><a href = "{{url_for('show_paste', paste_id = paste.id)}}">Paste #{{paste.id}} at {{ paste.pub_date.strftime('%Y-%m-%d @ %H:%M') }}</a></li>
+{% endfor %}
+</ul>
+<h3>Recent Comments:</h3>
+<ul>
+{% for comment in comments %}
+{% if comment.parent_paste%}
+<li><a href = "{{url_for('show_paste', paste_id = comment.parent_paste )}}">Comment at {{ comment.pub_date.strftime('%Y-%m-%d @ %H:%M') }} on Paste #{{comment.parent_paste}}</a></li>
+{% endif %}
+{% endfor %}
+</ul>
+</div>
+{% endblock %}
