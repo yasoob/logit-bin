@@ -155,6 +155,9 @@ def success():
 
 @app.route('/login', methods=('GET', 'POST'))
 def login():
+    if session['user_email']:
+        flash('you are already logged in')
+        redirect(request.referrer or url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -170,6 +173,9 @@ def login():
 
 @app.route('/signup', methods=('GET', 'POST'))
 def signup():
+    if session['user_email']:
+        flash('you are already signed up')
+        redirect(request.referrer or url_for('home'))
     form = SignupForm()
     if form.validate_on_submit():
         print "nothins"
