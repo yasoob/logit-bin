@@ -15,7 +15,7 @@ db = SQLAlchemy(app)
 #                                                Models                                         #
 #-----------------------------------------------------------------------------------------------#
 
-class Comment(db.Model):
+class Comment(db.Model): 
     __tablename__ = "comment"
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.Text)
