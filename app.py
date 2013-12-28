@@ -6,9 +6,13 @@ import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY']= 'dsdsaxasdcdvsfcahuf286r783h782tg62367dggdb2387'
-#app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///paste.db"
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///paste.db"
+#app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
+
+#-----------------------------------------------------------------------------------------------#
+#                                                Models                                         #
+#-----------------------------------------------------------------------------------------------#
 
 class Comment(db.Model):
     __tablename__ = "comment"
@@ -49,19 +53,25 @@ class User(db.Model):
 class Paste(db.Model):
     __tablename__ = 'paste'
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.Text)
     code = db.Column(db.Text)
     pub_date = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     comments = db.relationship('Comment', lazy='dynamic', cascade="all, delete-orphan", backref='paste')
 
-    def __init__(self, user, code):
+    def __init__(self, user, title, code):
         self.user = user
+        self.title = title
         self.code = code
         self.pub_date = datetime.utcnow()
 
     def __repr__(self):
         return '<Paste %r>' % self.id
 
+
+#-----------------------------------------------------------------------------------------------#
+#                                            Before Request                                     #
+#-----------------------------------------------------------------------------------------------#
 
 @app.before_request
 def check_user_status():
@@ -80,7 +90,10 @@ def check_user_status():
 def home():
     parent = None
     if request.method == 'POST' and request.form['code']:
-        paste = Paste(g.user,request.form['code'])
+        title = None
+        if request.form['title']:
+            title = request.form['title']
+        paste = Paste(g.user,title,request.form['code'])
         db.session.add(paste)
         db.session.commit()
         return redirect(url_for('show_paste', paste_id=paste.id))
@@ -148,9 +161,9 @@ def my_pastes():
 def about_page():
     return render_template('about.html')
 
-@app.route('/success')
-def success():
-    return render_template('home.html')
+@app.route('/feedback')
+def feedback():
+    return render_template('feedback.html')
 #---------------------------------------------Authentication------------------------------------#                                    
 
 @app.route('/login', methods=('GET', 'POST'))
@@ -208,6 +221,7 @@ def logout():
 #-----------------------------------------------------------------------------------------------#
 #                                                Main run                                       #
 #-----------------------------------------------------------------------------------------------#
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False)

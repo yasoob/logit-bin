@@ -2,17 +2,17 @@
 {% block title %}{{ session['user_name'] }}{% endblock %}
 {% block body %}
 <div class="login">
-<h3>Recent Pastes:</h3>
+<h3 class="login-box">Recent Pastes:</h3>
 <ul>
 {% if pastes %}
 {% for paste in pastes %}
-<li><a href = "{{url_for('show_paste', paste_id = paste.id)}}">Paste #{{paste.id}} at {{ paste.pub_date.strftime('%Y-%m-%d @ %H:%M') }}</a></li>
+<li><a href = "{{url_for('show_paste', paste_id = paste.id)}}">Paste #{{paste.id}} {{paste.title}} at {{ paste.pub_date.strftime('%Y-%m-%d @ %H:%M') }}</a></li>
 {% endfor %}
 {% else %}
-<p class="login-box">No pastes! In order to make a new paste <a href="{{url_for('home')}}">click here</a></p>
+<p >No pastes! In order to make a new paste <a href="{{url_for('home')}}">click here</a></p>
 {% endif %}
 </ul>
-<h3>Recent Comments:</h3>
+<h3 class="login-box">Recent Comments:</h3>
 <ul>
 {% if comments %}
 {% for comment in comments %}
@@ -21,7 +21,7 @@
 {% endif %}
 {% endfor %}
 {% else %}
-<p class="login-box">No comments.</p>
+<p>No comments.</p>
 {% endif %}
 </ul>
 </div>

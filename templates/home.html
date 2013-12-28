@@ -1,10 +1,13 @@
 {% extends "layout.html" %}
-{% block title %}New Paste{% endblock %}
+{% block title %}New Paste {% endblock %}
 {% block body %}
   <h2><ul><li>New Paste</li></ul></h2>
   <form action="" method=post>
-    <div class=code><textarea name=code cols=60 rows=18>{{ parent.code }}</textarea></div>
-    <p><input class = "new-paste" type=submit value="Logit!">
+    <div class=code>
+  <p class = "home-input">Title: <input type="text" name="title" value="" size="110" placeholder = "<optional>"> </p>
+    <textarea name=code cols=60 rows=18 placeholder="<required>">{{ parent.code }}</textarea>
+    <input class = "login-btn" type=submit value="Logit!">
+    </div>
   </form>
 
 {% endblock %}
