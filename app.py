@@ -2,9 +2,11 @@ from flask import Flask, request, url_for, redirect, g, session, flash, abort, r
 from forms import LoginForm , SignupForm
 from flask.ext.sqlalchemy import SQLAlchemy
 from datetime import datetime
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY']= 'dsdsaxasdcdvsfcahuf286r783h782tg62367dggdb2387'
+#app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///paste.db"
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
 
