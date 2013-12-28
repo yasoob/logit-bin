@@ -4,17 +4,25 @@
 <div class="login">
 <h3>Recent Pastes:</h3>
 <ul>
+{% if pastes %}
 {% for paste in pastes %}
 <li><a href = "{{url_for('show_paste', paste_id = paste.id)}}">Paste #{{paste.id}} at {{ paste.pub_date.strftime('%Y-%m-%d @ %H:%M') }}</a></li>
 {% endfor %}
+{% else %}
+<p class="login-box">No pastes! In order to make a new paste <a href="{{url_for('home')}}">click here</a></p>
+{% endif %}
 </ul>
 <h3>Recent Comments:</h3>
 <ul>
+{% if comments %}
 {% for comment in comments %}
 {% if comment.parent_paste%}
 <li><a href = "{{url_for('show_paste', paste_id = comment.parent_paste )}}">Comment at {{ comment.pub_date.strftime('%Y-%m-%d @ %H:%M') }} on Paste #{{comment.parent_paste}}</a></li>
 {% endif %}
 {% endfor %}
+{% else %}
+<p class="login-box">No comments.</p>
+{% endif %}
 </ul>
 </div>
 {% endblock %}
