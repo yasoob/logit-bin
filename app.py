@@ -6,6 +6,7 @@ import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY']= 'dsdsaxasdcdvsfcahuf286r783h782tg62367dggdb2387'
+
 #app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///paste.db"
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
