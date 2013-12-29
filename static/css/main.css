@@ -127,6 +127,8 @@ div.code textarea {padding-top: 0;margin-top: 0px;padding: 1em;resize: none;}
 .login-btn  {float: none;width: 100%;}
 .comment-head {margin-left: -30px;margin-right: -30px;padding: 5;padding-left: 15px;border-top: 1px solid black;border-bottom: 1px solid black;background: #eee;}
 .login-box{margin-left: -30px;margin-right: -30px;padding: 5;padding-left: 30px;border-top: 1px solid black;border-bottom: 1px solid black;background: #eee;}
-.home-input {padding: 1em;}
+.home-input {padding: 1em;float:left;}
 .home-input input {float:none;background: #FDF8F8;padding: 5px;padding-left: 10px;}
 div.code textarea.comment-area {margin-top:20px;resize: none;}
+input.paste-btn {float: none;margin-left: 10px;padding: 10px 10px;width: 10%;}
+div.code-home {text-align: center; border: none}
