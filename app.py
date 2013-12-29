@@ -90,6 +90,14 @@ def check_user_status():
 @app.route('/', methods=('GET', 'POST'))
 def home():
     parent = None
+    if session['user_name']:
+        user = User.query.filter_by(name = session['user_name']).first()
+        if user.pastes.all():
+            recent_paste = user.pastes.all()[-1].id
+        else:
+            recent_paste = None
+    else:
+        recent_paste = None
     if request.method == 'POST' and request.form['code']:
         title = None
         if request.form['title']:
@@ -98,7 +106,7 @@ def home():
         db.session.add(paste)
         db.session.commit()
         return redirect(url_for('show_paste', paste_id=paste.id))
-    return render_template('home.html', parent=parent)
+    return render_template('home.html', parent=parent, recent_paste=recent_paste)
 
 @app.route('/<paste_id>',methods=('GET','POST'))
 def show_paste(paste_id):
