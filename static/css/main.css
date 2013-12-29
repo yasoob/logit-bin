@@ -121,7 +121,6 @@ input { float:right;}
 .error {color:red}
 .new-paste  {float:none;}
 div.code textarea {padding-top: 0;margin-top: 0px;padding: 1em;resize: none;}
-.comment-author{/* font-weight:bold; */text-transform: capitalize;}
 .comment-date  {float:right;font-size:15px;font-style:italic}
 .inner-form-login { width: 300px;margin: 0 auto;}
 .login-btn  {float: none;width: 100%;}
