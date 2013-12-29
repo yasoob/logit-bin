@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Paste #{{ paste.id }} {{paste.title}} {% endblock %}
 {% block body %}
-  <h2>Paste #{{ paste.id }} {{paste.title or "Anonymous"}}</h2>
+  <h2>Paste #{{ paste.id }} {{paste.title}}</h2>
   <dl>
     <dt>Author
     {% if paste.user %}
@@ -18,7 +18,7 @@
     <dd><a href="{{url_for('delete_paste',paste_id=paste.id)}}">delete</a>
     {% endif %}
     </dl>
-  <div class='code'><pre class="highlight">{{ paste.code }}</pre></div>
+  <div class='code'><pre class="highlight"><code>{{ paste.code }}</code></pre></div>
 
   {% if paste.comments.all() %}
     <h3 class = "comment-head"><b>Comments:</b></h3>

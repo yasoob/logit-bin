@@ -8,7 +8,7 @@
 	{% block head %}
 	{% endblock %}
 </head>
-<body>
+<body onload="document.pasteform.code.focus()" >
 	<div class="box">
 	<div class = 'logo'>
 	<a href="{{url_for('home')}}"><img src = {{ url_for('static', filename = 'images/logo.png') }}></a>
