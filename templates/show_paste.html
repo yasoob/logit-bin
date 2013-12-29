@@ -24,7 +24,7 @@
     <h3 class = "comment-head"><b>Comments:</b></h3>
     <div class="comment-div">
     {% for i in paste.comments.all() %}
-    <div class = "comment" id="{{i.id}}"><ul>
+    <div class = "comment"><ul>
     <li><span class="comment-author">{{i.user.name}} said: </span><span class="comment-date">{{ i.pub_date.strftime('%Y-%m-%d @ %H:%M') }}</span></li>
     <pre class = "comment-box">{{i.message}}</pre></div>
  
