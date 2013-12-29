@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Paste #{{ paste.id }} {{paste.title}} {% endblock %}
 {% block body %}
-  <h2>Paste #{{ paste.id }} {{paste.title}}</h2>
+  <h2>Paste #{{ paste.id }} {{paste.title or ''}}</h2>
   <dl>
     <dt>Author
     {% if paste.user %}
