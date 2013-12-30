@@ -17,6 +17,8 @@
     /
     <dd><a href="{{url_for('delete_paste',paste_id=paste.id)}}">delete</a>
     {% endif %}
+    <dt>Link
+    <dd><input type="text" name="url" value="{{request.script_root + request.path}}">
     </dl>
   <div class='code'><pre class="highlight"><code>{{ paste.code }}</code></pre></div>
 

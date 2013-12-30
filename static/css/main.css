@@ -134,3 +134,4 @@ div.code-home {text-align: center; border: none}
 li h2 span {float: right;font-size: 18px;margin-top: 9px;}
 .comment-div {padding: 1.4em;background: #FDF7F7;margin-left: -20px;margin-right: -20px;margin-top: -5px;margin-bottom: 15px;}
 .comment     {margin-bottom: 40px}
+dd input {padding: 2px;border: 1px rgb(218, 200, 200) dotted;height: 23px;width: 120px;}
