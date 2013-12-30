@@ -8,8 +8,8 @@
   </h2></li></ul>
   <form action="" method=post name="pasteform">
     <div class="code code-home">
-  <p class = "home-input">Title: <input type="text" name="title" value="" placeholder = "<optional>"> </p>
-    <textarea name=code cols=60 rows=18 placeholder="<required>">{{ parent.code }}</textarea>
+  <p class = "home-input">Title: <input type="text" name="title" value="{{reply_to_title}}" placeholder = "<optional>"> </p>
+    <textarea name=code cols=60 rows=18 placeholder="<required>">{{ reply_to.code }}</textarea>
     <input class = "paste-btn" type=submit value="Logit!">
     </div>
   </form>

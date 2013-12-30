@@ -89,7 +89,9 @@ def check_user_status():
 
 @app.route('/', methods=('GET', 'POST'))
 def home():
+    reply_to = None
     parent = None
+    reply_to_title=''
     if session['user_name']:
         user = User.query.filter_by(name = session['user_name']).first()
         if user.pastes.all():
@@ -106,7 +108,13 @@ def home():
         db.session.add(paste)
         db.session.commit()
         return redirect(url_for('show_paste', paste_id=paste.id))
-    return render_template('home.html', parent=parent, recent_paste=recent_paste)
+    if request.method == 'GET' and request.args.get('reply_to'):
+        reply_id = request.args.get('reply_to')
+        paste = Paste.query.filter_by(id = reply_id).first()
+        if paste is not None:
+            reply_to_title = "Reply to #%s"%(paste.id)
+            return render_template('home.html', parent=parent, recent_paste=recent_paste,reply_to = paste,reply_to_title=reply_to_title)
+    return render_template('home.html', parent=parent, recent_paste=recent_paste,reply_to=reply_to,reply_to_title=reply_to_title)
 
 @app.route('/<paste_id>',methods=('GET','POST'))
 def show_paste(paste_id):
