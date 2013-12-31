@@ -3,6 +3,7 @@ from forms import LoginForm , SignupForm
 from flask.ext.sqlalchemy import SQLAlchemy
 from datetime import datetime
 import os
+from werkzeug import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config['SECRET_KEY']= 'dsdsaxasdcdvsfcahuf286r783h782tg62367dggdb2387'
@@ -44,9 +45,15 @@ class User(db.Model):
 
     def __init__(self, name, email, password):
         self.name = name
-        self.password = password
         self.email = email
-        
+        self.set_password(password)
+    
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+       
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+
     def __repr__(self):
         return '<User %r>' % self.name
 
@@ -192,7 +199,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        if user is not None and user.password == form.password.data:
+        if user is not None and user.check_password(form.password.data):
             session['user_email'] = form.email.data
             session['user_name'] = user.name
             flash('Thanks for logging in')
@@ -220,7 +227,6 @@ def signup():
             session['user_name'] = form.name.data
             flash('Thanks for registering. You are now logged in!')
             return redirect(url_for('home'))
-            #return redirect(url_for('success'))
         elif user_name is None:
             flash("email already exists. Choose another one!",'error')
             render_template('signup.html', form=form)
