@@ -123,12 +123,14 @@ def home():
         db.session.add(paste)
         db.session.commit()
         return redirect(url_for('show_paste', paste_id=paste.id))
+    elif request.method == 'POST':
+    	flash('You need to fill in the code field')
     if request.method == 'GET' and request.args.get('reply_to'):
         reply_id = request.args.get('reply_to')
         paste = Paste.query.filter_by(id = reply_id).first()
         if paste is not None:
             reply_to_title = "Reply to #%s"%(paste.id)
-            return render_template('home.html', parent=parent, recent_paste=recent_paste,reply_to = paste,reply_to_title=reply_to_title)
+            return render_template('home.html', parent=parent, recent_paste=recent_paste,reply_to = paste,reply_to_title=reply_to_title)    
     return render_template('home.html', parent=parent, recent_paste=recent_paste,reply_to=reply_to,reply_to_title=reply_to_title)
 
 @app.route('/<paste_id>',methods=('GET','POST'))

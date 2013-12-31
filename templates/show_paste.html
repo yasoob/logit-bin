@@ -28,7 +28,7 @@
     <div class="comment-div">
     {% for i in paste.comments.all() %}
     <div class = "comment"><ul>
-    <li><span class="comment-author">{{i.user.name}} said: </span><span class="comment-date">{{ i.pub_date.strftime('%Y-%m-%d @ %H:%M') }}</span></li>
+    <li><span class="comment-author">{{i.user.name}} said: </span><span class="comment-date">{{ i.pub_date.strftime('%Y-%m-%d @ %H:%M')+" UTC" }}</span></li>
     <pre class = "comment-box">{{i.message}}</pre></div>
  
 
