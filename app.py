@@ -8,8 +8,11 @@ from werkzeug import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.config['SECRET_KEY']= 'dsdsaxasdcdvsfcahuf286r783h782tg62367dggdb2387'
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///paste.db"
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+if os.environ.get('DATABASE_URL') is None:
+    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///paste.db"
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+
 db = SQLAlchemy(app)
 
 #-----------------------------------------------------------------------------------------------#
@@ -63,13 +66,15 @@ class Paste(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text)
     code = db.Column(db.Text)
+    anonymous = db.Column(db.Boolean, unique=False, default=False)
     pub_date = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     comments = db.relationship('Comment', lazy='dynamic', cascade="all, delete-orphan", backref='paste')
 
-    def __init__(self, user, title, code):
+    def __init__(self, user, title, code,anonymous = False):
         self.user = user
         self.title = title
+        self.anonymous = anonymous
         self.code = code
         self.pub_date = datetime.utcnow()
 
@@ -108,10 +113,13 @@ def home():
     else:
         recent_paste = None
     if request.method == 'POST' and request.form['code']:
+    	visibility = True
+    	if request.form['visibility'] == "secret":
+    		visibility = False
         title = None
         if request.form['title']:
             title = request.form['title']
-        paste = Paste(g.user,title,request.form['code'])
+        paste = Paste(g.user,title,request.form['code'],visibility)
         db.session.add(paste)
         db.session.commit()
         return redirect(url_for('show_paste', paste_id=paste.id))
