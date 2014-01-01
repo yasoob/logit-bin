@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Paste #{{ paste.id }} {{paste.title}} {% endblock %}
+{% block title %}Paste #{{ paste.id }} {{paste.title or ''}} {% endblock %}
 {% block body %}
   <h2>Paste #{{ paste.id }} {{paste.title or ''}}</h2>
   <dl>
