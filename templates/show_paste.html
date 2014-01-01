@@ -16,7 +16,7 @@
     <dd><a href="{{url_for('home',reply_to=paste.id)}}"> reply</a> 
     {% if paste.reply_to %}
     /
-    <dd><a href="{{url_for('show_diff',paste1=paste.id,paste2=paste.reply_to)}}"> diff</a>
+    <dd><a href="{{url_for('show_diff',paste1=paste.reply_to,paste2=paste.id)}}"> diff</a>
     {% endif %}
     {% if session['user_name'] == paste.user.name%}
     /
