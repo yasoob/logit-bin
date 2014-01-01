@@ -11,7 +11,7 @@
 	  	<p class = "home-input">Title: <input type="text" name="title" value="{{reply_to_title}}" placeholder = "<optional>"> </p>
 		<p class="home-input right">Visibility: <input type="radio" name="visibility" value="secret"> Secret <input type="radio" name="visibility" value="public" checked> Public</p>
 	    <textarea name='code' cols='60' rows='18' placeholder="<required>">{{ reply_to.code }}</textarea>
-	    <input type="hidden" name="title" value="{{reply_to_id}}" >
+	    <input type="hidden" name="reply_to" value="{{reply_to.id}}" >
 	    <input class = "paste-btn" type=submit value="Logit!">
     </div>
   

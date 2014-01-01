@@ -13,7 +13,8 @@
     <dd>{{ paste.pub_date.strftime('%Y-%m-%d @ %H:%M')+" UTC" }}
     <dt>Actions
     <dd><a href="{{url_for('view_raw',paste_id=paste.id)}}">raw</a> /
-    <dd><a href="{{url_for('home',reply_to=paste.id)}}"> reply</a>
+    <dd><a href="{{url_for('home',reply_to=paste.id)}}"> reply</a> /
+    <dd><a href="{{url_for('show_diff',paste1=paste.id,paste2=paste.reply_to)}}"> diff</a>
     {% if session['user_name'] == paste.user.name%}
     /
     <dd><a href="{{url_for('delete_paste',paste_id=paste.id)}}">delete</a>

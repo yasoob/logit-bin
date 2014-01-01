@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block title %}Diff between #{{ frompaste.id }} #{{to.id}}{% endblock %}
+{% block body %}
+<h2>Diff between #{{ frompaste.id }} #{{to.id}}</h2>
+
+<div class='code-div'><pre class="highlight"><code>
+{% for i in diff %}
+{{ i }}
+{%endfor%}
+</code></pre></div>
+{% endblock %}

@@ -4,6 +4,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from datetime import datetime
 import os
 from werkzeug import generate_password_hash, check_password_hash
+import difflib
 
 app = Flask(__name__)
 app.config['SECRET_KEY']= 'dsdsaxasdcdvsfcahuf286r783h782tg62367dggdb2387'
@@ -69,13 +70,15 @@ class Paste(db.Model):
     anonymous = db.Column(db.Boolean, unique=False, default=False)
     pub_date = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    reply_to = db.Column(db.Integer,default=None)
     comments = db.relationship('Comment', lazy='dynamic', cascade="all, delete-orphan", backref='paste')
 
-    def __init__(self, user, title, code,anonymous = False):
+    def __init__(self, user, title, code,anonymous = False,reply_to=None):
         self.user = user
         self.title = title
         self.anonymous = anonymous
         self.code = code
+        self.reply_to = reply_to
         self.pub_date = datetime.utcnow()
 
     def __repr__(self):
@@ -104,6 +107,7 @@ def home():
     reply_to = None
     parent = None
     reply_to_title=''
+    reply_to = None
     if session['user_name']:
         user = User.query.filter_by(name = session['user_name']).first()
         if user.pastes.all():
@@ -113,18 +117,20 @@ def home():
     else:
         recent_paste = None
     if request.method == 'POST' and request.form['code']:
-    	visibility = True
-    	if request.form['visibility'] == "secret":
-    		visibility = False
+        visibility = True
+        if request.form['reply_to']:
+            reply_to= request.form['reply_to']
+        if request.form['visibility'] == "secret":
+            visibility = False
         title = None
         if request.form['title']:
             title = request.form['title']
-        paste = Paste(g.user,title,request.form['code'],visibility)
+        paste = Paste(g.user,title,request.form['code'],visibility,reply_to)
         db.session.add(paste)
         db.session.commit()
         return redirect(url_for('show_paste', paste_id=paste.id))
     elif request.method == 'POST':
-    	flash('You need to fill in the code field')
+        flash('You need to fill in the code field')
     if request.method == 'GET' and request.args.get('reply_to'):
         reply_id = request.args.get('reply_to')
         paste = Paste.query.filter_by(id = reply_id).first()
@@ -178,6 +184,23 @@ def delete_paste(paste_id):
         else:
             return redirect(url_for('show_paste', paste_id=paste.id))
     return render_template('delete_paste.html', paste=paste)
+
+@app.route('/diff')
+def show_diff():
+    paste1 = request.args.get('paste1')
+    paste2 = request.args.get('paste2')
+    paste1 = Paste.query.get_or_404(paste1)
+    paste2 = Paste.query.get_or_404(paste2)
+    #diff=difflib.ndiff(paste2.code.splitlines(), paste1.code.splitlines())
+    diff = difflib.unified_diff(paste1.code.splitlines(),paste2.code.splitlines(),fromfile="paste #"+str(paste1.id),tofile="paste #"+str(paste2.id))
+    diff_list = []
+    try:
+        while 1:
+            diff_list.append(''.join(diff.next()))
+    except:
+        pass
+    return render_template('show_diff.html',diff=diff_list,to=paste2,frompaste=paste1)
+
 
 @app.route('/my_pastes', methods=('GET', 'POST'))
 def my_pastes():
