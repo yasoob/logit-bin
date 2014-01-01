@@ -5,6 +5,7 @@ from datetime import datetime
 import os
 from werkzeug import generate_password_hash, check_password_hash
 import difflib
+import uuid
 
 app = Flask(__name__)
 app.config['SECRET_KEY']= 'dsdsaxasdcdvsfcahuf286r783h782tg62367dggdb2387'
@@ -65,6 +66,7 @@ class User(db.Model):
 class Paste(db.Model):
     __tablename__ = 'paste'
     id = db.Column(db.Integer, primary_key=True)
+    uuid_id = db.Column(db.String(120))
     title = db.Column(db.Text)
     code = db.Column(db.Text)
     anonymous = db.Column(db.Boolean, unique=False, default=False)
@@ -80,6 +82,7 @@ class Paste(db.Model):
         self.code = code
         self.reply_to = reply_to
         self.pub_date = datetime.utcnow()
+        self.uuid_id = str(uuid.uuid4().hex[:12])
 
     def __repr__(self):
         return '<Paste %r>' % self.id
