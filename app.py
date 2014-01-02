@@ -219,8 +219,9 @@ def my_pastes():
         return redirect(url_for('home'))
 
 @app.route('/archive')
-def show_archive():
-	paste = Paste.query.filter_by(anonymous=True).order_by('pub_date desc').limit(25)
+@app.route('/archive/<int:page>')
+def show_archive(page = 1):
+	paste = Paste.query.filter_by(anonymous=True).order_by('pub_date desc').paginate(page,25,False)
 	return render_template('archive.html',pastes = paste)
 
 @app.route('/about')

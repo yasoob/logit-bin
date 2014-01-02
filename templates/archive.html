@@ -4,10 +4,15 @@
 <div class="login">
 <ul>
 <h3 class="comment-head">> Archive</h3>
-
-{% for paste in pastes %}
+{% for paste in pastes.items %}
 <li><a href = "{{url_for('show_paste',paste_id = paste.id)}}">Paste #{{paste.id}} {{paste.title or ''}}</a> <span class="right">{{ paste.pub_date.strftime('%Y-%m-%d')}}</span></li>
 {% endfor %}
 </ul>
+{% if pastes.has_prev%}
+<p class="left top"><a href="{{url_for('show_archive',page=pastes.prev_num)}}"><< prev</a></p>
+{% endif %}
+{% if pastes.has_next%}
+<p class="right top"><a href="{{url_for('show_archive',page=pastes.next_num)}}">>> next</a></p>
+{% endif %}
 </div>
 {% endblock %}

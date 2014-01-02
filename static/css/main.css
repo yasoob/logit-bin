@@ -140,3 +140,5 @@ dd input {padding: 2px;border: 1px rgb(218, 200, 200) dotted;height: 23px;width:
        border-bottom: 1px solid black;}
 .code-div code{font-size: 14px;}
 .right {float:right;}
+.left  {float: left;}
+p.top {margin-top: 10px}
