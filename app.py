@@ -218,6 +218,11 @@ def my_pastes():
     else:
         return redirect(url_for('home'))
 
+@app.route('/archive')
+def show_archive():
+	paste = Paste.query.order_by('pub_date desc').limit(25)
+	return render_template('archive.html',pastes = paste)
+
 @app.route('/about')
 def about_page():
     return render_template('about.html')
