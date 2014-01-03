@@ -232,14 +232,15 @@ def about_page():
 def show_sitemap():
     pastes = Paste.query.filter_by(anonymous=True)
     pages = []
+    url_root = request.url_root[:-1]
     ten_days_ago= datetime.utcnow().strftime('%Y-%m-%d %H:%M')
     for rule in app.url_map.iter_rules():
           if "GET" in rule.methods and len(rule.arguments)==0:
               pages.append(
-                           [rule.rule,ten_days_ago]
+                           [url_root+rule.rule,ten_days_ago]
                            )
     for paste in pastes:
-        url = url_for('show_paste',paste_id=paste.id)
+        url = url_for('show_paste',paste_id=paste.id,_external=True)
         modified_time = paste.pub_date.strftime('%Y-%m-%d %H:%M')
         pages.append([url,modified_time]) 
 
