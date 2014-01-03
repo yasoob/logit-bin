@@ -221,12 +221,32 @@ def my_pastes():
 @app.route('/archive')
 @app.route('/archive/<int:page>')
 def show_archive(page = 1):
-	paste = Paste.query.filter_by(anonymous=True).order_by('pub_date desc').paginate(page,25,False)
-	return render_template('archive.html',pastes = paste)
+    paste = Paste.query.filter_by(anonymous=True).order_by('pub_date desc').paginate(page,25,False)
+    return render_template('archive.html',pastes = paste)
 
 @app.route('/about')
 def about_page():
     return render_template('about.html')
+
+@app.route('/sitemap.xml')
+def show_sitemap():
+    pastes = Paste.query.filter_by(anonymous=True)
+    pages = []
+    ten_days_ago= datetime.utcnow().strftime('%Y-%m-%d %H:%M')
+    for rule in app.url_map.iter_rules():
+          if "GET" in rule.methods and len(rule.arguments)==0:
+              pages.append(
+                           [rule.rule,ten_days_ago]
+                           )
+    for paste in pastes:
+        url = url_for('show_paste',paste_id=paste.id)
+        modified_time = paste.pub_date.strftime('%Y-%m-%d %H:%M')
+        pages.append([url,modified_time]) 
+
+    sitemap_xml = render_template('sitemap.xml', pages=pages)
+    response= make_response(sitemap_xml)
+    response.headers["Content-Type"] = "application/xml"   
+    return response
 
 @app.route('/feedback')
 def feedback():
@@ -290,4 +310,4 @@ def logout():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=False)
