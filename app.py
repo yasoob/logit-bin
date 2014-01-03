@@ -1,4 +1,4 @@
-from flask import Flask, request, url_for, redirect, g, session, flash, abort, render_template, make_response
+from flask import Flask, request, url_for, redirect, g, session, flash, abort, render_template, make_response,send_from_directory
 from forms import LoginForm , SignupForm
 from flask.ext.sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -246,6 +246,12 @@ def show_sitemap():
     sitemap_xml = render_template('sitemap.xml', pages=pages)
     response= make_response(sitemap_xml)
     response.headers["Content-Type"] = "application/xml"   
+    return response
+
+@app.route('/robots.txt')
+def show_robotstxt():
+    response= make_response(render_template('robots.txt'))
+    response.headers["content-type"] = "text/plain"
     return response
 
 @app.route('/feedback')
