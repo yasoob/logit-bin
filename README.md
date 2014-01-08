@@ -1,15 +1,18 @@
-# Heroku Python Skeleton
+# Logit-bin
 
-This repository has all the base files ready for deploying a Heroku application, including a simple database model managed with flask-sqlalchemy.
+This repository contains code which I used to deploy a simple pastebin to Heroku. Just clone it and start using it.
 
 ## Usage
 
 ### Initial
 
 ```bash
-$ git clone https://github.com/yuvadm/heroku-python-skeleton.git
-$ cd heroku-python-skeleton
-$ heroku create
+$ git clone git@github.com:yasoob/logit-bin.git
+$ cd logit-bin
+$ foreman start
+$ # in order to deploy it to heroku
+$ # I am not including the steps to 
+$ # initialize a heroku app
 $ git push heroku master
 ```
 
@@ -31,4 +34,8 @@ and in the Python REPL:
 >>> db.create_all()
 ```
 
-For a detailed introduction see [http://blog.y3xz.com/blog/2012/08/16/flask-and-postgresql-on-heroku/](http://blog.y3xz.com/blog/2012/08/16/flask-and-postgresql-on-heroku/).
+##TODO:
+- add syntax highlighting using pygments.
+- allow line highlighting using target identifier like gist.
+- add facebook and twitter sharing
+- introduce more features
