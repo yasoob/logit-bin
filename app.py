@@ -8,7 +8,7 @@ import difflib
 import uuid
 
 app = Flask(__name__)
-app.config['SECRET_KEY']= 'dsdsaxasdcdvsfcahuf286r783h782tg62367dggdb2387'
+app.config['SECRET_KEY']= 'ANYTHING SECRET'
 
 if os.environ.get('DATABASE_URL') is None:
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///paste.db"
@@ -194,7 +194,6 @@ def show_diff():
     paste2 = request.args.get('paste2')
     paste1 = Paste.query.get_or_404(paste1)
     paste2 = Paste.query.get_or_404(paste2)
-    #diff=difflib.ndiff(paste2.code.splitlines(), paste1.code.splitlines())
     diff = difflib.unified_diff(paste1.code.splitlines(),paste2.code.splitlines(),fromfile="paste #"+str(paste1.id),tofile="paste #"+str(paste2.id))
     diff_list = []
     try:
