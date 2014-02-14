@@ -16,7 +16,6 @@ else:
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
 db = SQLAlchemy(app)
-
 #-----------------------------------------------------------------------------------------------#
 #                                                Models                                         #
 #-----------------------------------------------------------------------------------------------#
@@ -131,7 +130,7 @@ def home():
         paste = Paste(g.user,title,request.form['code'],visibility,reply_to)
         db.session.add(paste)
         db.session.commit()
-        return redirect(url_for('show_paste', paste_id=paste.id))
+        return redirect(url_for('show_paste', paste_id=paste.uuid_id))
     elif request.method == 'POST':
         flash('You need to fill in the code field')
     if request.method == 'GET' and request.args.get('reply_to'):
@@ -145,7 +144,7 @@ def home():
 @app.route('/<paste_id>',methods=('GET','POST'))
 def show_paste(paste_id):
     if request.method == 'POST' and request.form['comment'] and session['user_name']:
-        paste = Paste.query.filter_by(id = paste_id).first()
+        paste = Paste.query.filter_by(uuid_id = paste_id).first()
         user = User.query.filter_by(name = session['user_name']).first()
         comment = Comment(request.form['comment'],user,paste)
         db.session.add(comment)
@@ -159,7 +158,7 @@ def show_paste(paste_id):
     elif request.method == 'POST' and request.form['comment']:
         flash('In order to comment you need to be logged in!')
         return render_template('show_paste.html', paste = paste)
-    paste = Paste.query.filter_by(id = paste_id).first()
+    paste = Paste.query.filter_by(uuid_id = paste_id).first()
     if paste: 
         return render_template('show_paste.html', paste = paste)
     else:
@@ -167,7 +166,7 @@ def show_paste(paste_id):
 
 @app.route('/<paste_id>/raw')
 def view_raw(paste_id):
-    response = make_response(Paste.query.filter_by(id = paste_id).first().code)
+    response = make_response(Paste.query.filter_by(uuid_id = paste_id).first().code)
     response.headers["content-type"] = "text/plain"
     return response
 
@@ -178,14 +177,14 @@ def delete_paste(paste_id):
         if session['user_name'] is None or session['user_name'] != paste.user.name:
             abort(401)
     if request.method == 'POST':
-        if 'yes' in request.form:
+        if 'yes' in request.form and session['user_name'] is not None and session['user_name'] == paste.user.name:
             comments = paste.user.comments.filter_by(parent_paste = 1).all()
             db.session.delete(paste)
             db.session.commit()
             flash('Paste was successfully deleted')
             return redirect(url_for('home'))
         else:
-            return redirect(url_for('show_paste', paste_id=paste.id))
+            return redirect(url_for('show_paste', paste_id=paste.uuid_id))
     return render_template('delete_paste.html', paste=paste)
 
 @app.route('/diff')
@@ -239,7 +238,7 @@ def show_sitemap():
                            [url_root+rule.rule,ten_days_ago]
                            )
     for paste in pastes:
-        url = url_for('show_paste',paste_id=paste.id,_external=True)
+        url = url_for('show_paste',paste_id=paste.uuid_id,_external=True)
         modified_time = paste.pub_date.strftime('%Y-%m-%d %H:%M')
         pages.append([url,modified_time]) 
 
@@ -316,4 +315,4 @@ def logout():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=port, debug=True)
