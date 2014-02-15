@@ -12,7 +12,7 @@
     <dt>Date
     <dd>{{ paste.pub_date.strftime('%Y-%m-%d @ %H:%M')+" UTC" }}
     <dt>Actions
-    <dd><a href="{{url_for('view_raw',paste_id=paste.id)}}">raw</a> /
+    <dd><a href="{{url_for('view_raw',paste_id=paste.uuid_id)}}">raw</a> /
     <dd><a href="{{url_for('home',reply_to=paste.id)}}"> reply</a> 
     {% if paste.reply_to %}
     /
