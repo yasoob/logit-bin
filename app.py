@@ -113,7 +113,7 @@ def home():
     if session['user_name']:
         user = User.query.filter_by(name = session['user_name']).first()
         if user.pastes.all():
-            recent_paste = user.pastes.all()[-1]
+            recent_paste = user.pastes.all()[0]
         else:
             recent_paste = None
     else:
