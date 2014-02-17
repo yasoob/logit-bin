@@ -37,9 +37,9 @@ and in the Python REPL:
 ```
 
 ##TODO:
-- add tests
-- use uuid_id field in url to display pastes in order to avoide paste enumeration
-- add syntax highlighting using pygments
-- allow line highlighting using target identifier like gist
-- add facebook and twitter sharing
-- introduce more features
+-   add tests
+- ✓ use uuid_id field in url to display pastes in order to avoide paste enumeration
+-   add syntax highlighting using pygments
+-   allow line highlighting using target identifier like gist
+-   add facebook and twitter sharing
+-   introduce more features
