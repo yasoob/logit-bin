@@ -6,7 +6,7 @@
 <ul>
 {% if pastes %}
 {% for paste in pastes %}
-<li><a href = "{{url_for('show_paste', paste_id = paste.id)}}">Paste #{{paste.id}} {{paste.title or ''}} at {{ paste.pub_date.strftime('%Y-%m-%d @ %H:%M') }}</a></li>
+<li><a href = "{{url_for('show_paste', paste_id = paste.uuid_id)}}">Paste #{{paste.id}} {{paste.title or ''}} at {{ paste.pub_date.strftime('%Y-%m-%d @ %H:%M') }}</a></li>
 {% endfor %}
 {% else %}
 <p >No pastes! In order to make a new paste <a href="{{url_for('home')}}">click here</a></p>
@@ -17,7 +17,7 @@
 {% if comments %}
 {% for comment in comments %}
 {% if comment.parent_paste%}
-<li><a href = "{{url_for('show_paste', paste_id = comment.parent_paste )}}">Comment at {{ comment.pub_date.strftime('%Y-%m-%d @ %H:%M') }} on Paste #{{comment.parent_paste}}</a></li>
+<li><a href = "{{url_for('show_paste', paste_id = comment.paste.uuid_id )}}">Comment at {{ comment.pub_date.strftime('%Y-%m-%d @ %H:%M') }} on Paste #{{comment.parent_paste}}</a></li>
 {% endif %}
 {% endfor %}
 {% else %}

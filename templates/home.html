@@ -3,7 +3,7 @@
 {% block body %}
   <ul><li><h2>New Paste 
   {% if recent_paste %}
-  <span>Your recent paste: <a href="{{url_for('show_paste', paste_id=recent_paste)}}">#{{recent_paste}}</a></span>
+  <span>Your recent paste: <a href="{{url_for('show_paste', paste_id=recent_paste.uuid_id)}}">#{{recent_paste.id}}</a></span>
   {% endif %}
   </h2></li></ul>
   <form action="" method=post name="pasteform">

@@ -113,7 +113,7 @@ def home():
     if session['user_name']:
         user = User.query.filter_by(name = session['user_name']).first()
         if user.pastes.all():
-            recent_paste = user.pastes.all()[-1].id
+            recent_paste = user.pastes.all()[-1]
         else:
             recent_paste = None
     else:
@@ -314,5 +314,5 @@ def logout():
 #-----------------------------------------------------------------------------------------------#
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    port = int(os.environ.get('PORT', 8080))
+    app.run(host='0.0.0.0', port=port, debug=True)
