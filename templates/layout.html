@@ -33,7 +33,7 @@
         {% endif %}
 		<a href = "{{url_for('show_archive')}}">archive</a> //
 		<a href = "{{url_for('about_page')}}">about</a> //
-		<a href = "{{url_for('feedback')}}">feedback</a> 
+		<a href = "{{url_for('feedback')}}">feedback</a>
 	</p>
 	<div class = "flash-messages">
 	{% with messages = get_flashed_messages(with_categories=true) %}
@@ -60,7 +60,7 @@
 
 	<p class="footer">
     © Copyright 2013 by <a href="http://yasoob.github.io/">Yasoob Khalid</a>.<br>
-    {% if session['user_email'] %} 
+    {% if session['user_email'] %}
     //
     <a href="{{url_for('my_pastes')}}">profile</a> /
     <a href="{{url_for('logout')}}" title="signed in as {{session['user_name'] }}">sign out</a>
